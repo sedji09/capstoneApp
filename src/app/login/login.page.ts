@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { 
   IonContent, IonHeader, IonTitle, IonToolbar, 
-  IonItem, IonLabel, IonInput, IonButton, IonCard, IonCardContent, IonText, IonIcon
+  IonItem, IonInput, IonButton, IonCard, IonCardContent, IonText
 } from '@ionic/angular';
 import { DataService } from '../services/data';
 
@@ -16,8 +16,8 @@ import { RouterModule } from '@angular/router';
   styleUrls: ['./login.page.scss'],
   imports: [
     IonContent, IonHeader, IonTitle, IonToolbar, 
-    CommonModule, FormsModule, IonItem, IonLabel, 
-    IonInput, IonButton, IonCard, IonCardContent, IonText, IonIcon, RouterModule
+    CommonModule, FormsModule, IonItem, 
+    IonInput, IonButton, IonCard, IonCardContent, IonText, RouterModule
   ]
 })
 export class LoginPage implements OnInit {

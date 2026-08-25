@@ -2,42 +2,87 @@
   <ion-toolbar color="primary">
     <ion-title>Patient Portal</ion-title>
     <ion-buttons slot="end">
-      <ion-button routerLink="/home">Logout</ion-button>
+      <!-- Routing / routerLink -->
+      <ion-button routerLink="/home" fill="clear">
+        <ion-icon slot="start" name="log-out-outline"></ion-icon>
+        Logout
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <div>
-    <h2>Welcome back, {{ patients.name }}!</h2>
-    <p>Here's an overview of your X-ray examination status.</p>
+  <!-- Interpolation {{ }} -->
+  <div class="welcome-header">
+    <h2>Welcome, {{ patient.name }}!</h2>
+    <p>Here is your radiology examination status.</p>
   </div>
 
-
+  <!-- Patient Information Card using Interpolation {{ }} -->
   <ion-card>
     <ion-card-header>
       <div style="display: flex; align-items: center; gap: 15px;">
-        <img src="{{ patients.userImg }}" alt="Profile" width="50" height="50"
-          style="border-radius: 50%; object-fit: cover;" />
-        <div style="display: flex; flex-direction: column; justify-content: center;">
-          <ion-card-title style="margin: 0; padding-bottom: 4px;">{{ patients.name }}</ion-card-title>
-          <ion-card-subtitle style="margin: 0;">{{ patients.patientId }}</ion-card-subtitle>
+        <img [src]="patient.userImg || 'assets/image/user1.jpg'" alt="Profile" width="50" height="50" style="border-radius: 50%; object-fit: cover;" />
+        <div>
+          <ion-card-title>{{ patient.name }}</ion-card-title>
+          <ion-card-subtitle>{{ patient.patientId }}</ion-card-subtitle>
         </div>
       </div>
     </ion-card-header>
     <ion-card-content>
-      <div
-        style="display: flex; flex-wrap: nowrap; gap: 8px; align-items: center; padding-bottom: 20px; color: #888; font-size: 0.75rem; white-space: nowrap;">
-        <span style="display: flex; align-items: center; gap: 3px;">
-          <ion-icon name="location-outline" style="color: #f44336; font-size: 1rem;"></ion-icon> {{ patients.location }}
-        </span>
-        <span style="display: flex; align-items: center; gap: 3px;">
-          <ion-icon name="call-outline" style="color: #f44336; font-size: 1rem;"></ion-icon> {{ patients.contactNo }}
-        </span>
-        <span style="display: flex; align-items: center; gap: 3px;">
-          <ion-icon name="mail-outline" style="color: #f44336; font-size: 1rem;"></ion-icon> {{ patients.email }}
-        </span>
+      <div style="display: flex; gap: 12px; font-size: 0.8rem; color: #666; flex-wrap: wrap;">
+        <span><ion-icon name="location-outline" color="danger"></ion-icon> {{ patient.location }}</span>
+        <span><ion-icon name="call-outline" color="danger"></ion-icon> {{ patient.contactNo }}</span>
+        <span><ion-icon name="mail-outline" color="danger"></ion-icon> {{ patient.email }}</span>
       </div>
     </ion-card-content>
   </ion-card>
+
+  <h3 style="margin-top: 20px;">My Radiology Records</h3>
+
+  <!-- @for Directive: Loop through Patient Cases -->
+  @for (caseItem of patientCases; track caseItem.id) {
+    <!-- Property Binding [caseData] and [showActions] -->
+    <!-- Event Binding (viewDetails) -->
+    <app-case-card 
+      [caseData]="caseItem" 
+      [showActions]="false"
+      (viewDetails)="onViewDetails($event)">
+    </app-case-card>
+  } @empty {
+    <p style="text-align: center; color: #888;">No records available.</p>
+  }
+
+  <!-- Modal: View Details -->
+  <ion-modal [isOpen]="isModalOpen" (didDismiss)="closeModal()">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar color="primary">
+          <ion-title>Radiology Report</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="closeModal()">
+              <ion-icon name="close-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+
+      <ion-content class="ion-padding">
+        <!-- @if Directive -->
+        @if (selectedCase) {
+          <!-- Interpolation {{ }} -->
+          <h3>{{ selectedCase.modality }}</h3>
+          <p><strong>Case Number:</strong> {{ selectedCase.caseNumber }}</p>
+          <p><strong>Date:</strong> {{ selectedCase.date }}</p>
+          <p><strong>Status:</strong> {{ selectedCase.status }}</p>
+          <p><strong>Findings:</strong> {{ selectedCase.findings }}</p>
+
+          <ion-button expand="block" fill="outline" style="margin-top: 20px;" (click)="closeModal()">
+            Close
+          </ion-button>
+        }
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
 </ion-content>

@@ -1,0 +1,19 @@
+.welcome-banner {
+  margin-bottom: 12px;
+
+  h2 {
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin: 0 0 4px 0;
+  }
+
+  p {
+    margin: 0;
+    color: var(--ion-color-medium, #666);
+    font-size: 0.85rem;
+  }
+}
+
+.case-list {
+  margin-top: 10px;
+}
