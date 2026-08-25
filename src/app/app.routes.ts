@@ -10,4 +10,16 @@ export const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full',
   },
+  {
+    path: 'login',
+    loadComponent: () => import('./login/login.page').then( m => m.LoginPage)
+  },
+  {
+    path: 'patient-portal',
+    loadComponent: () => import('./patient-portal/patient-portal.page').then( m => m.PatientPortalPage)
+  },
+  {
+    path: 'radiologist-portal',
+    loadComponent: () => import('./radiologist-portal/radiologist-portal.page').then( m => m.RadiologistPortalPage)
+  },
 ];

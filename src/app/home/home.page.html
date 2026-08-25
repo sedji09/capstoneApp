@@ -1,20 +1,30 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
     <ion-title>
-      Blank
+      <img src="../assets/image/citilife-logo.png" alt="Citilife Logo" width="40" height="40" />
+      Citilife Portal
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Patient Portal</ion-card-title>
+      <ion-card-subtitle>This is the patient portal</ion-card-subtitle>
+      <ion-button routerLink="/login" [queryParams]="{ type: 'patient' }">
+        Login as Patient
+      </ion-button>
+    </ion-card-header>
+  </ion-card>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Radiologist Portal</ion-card-title>
+      <ion-card-subtitle>This is the radiologist portal</ion-card-subtitle>
+      <ion-button routerLink="/login" [queryParams]="{ type: 'radiologist' }">
+        Login as Radiologist
+      </ion-button>
+    </ion-card-header>
+  </ion-card>
 </ion-content>
