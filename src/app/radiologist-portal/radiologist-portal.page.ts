@@ -59,7 +59,7 @@ export class RadiologistPortalPage implements OnInit {
   // Selected case for details / update modal
   selectedCase: RadiologyCase | null = null;
   isModalOpen: boolean = false;
-  newStatus: 'Pending' | 'Completed' | 'Critical' = 'Pending';
+  newStatus: 'Pending' | 'Completed' | 'STAT' = 'Pending';
 
   constructor(private dataService: DataService) {
     addIcons({ logOutOutline, closeOutline });

@@ -9,5 +9,5 @@ import { RouterModule } from '@angular/router';
   imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonButton, IonCardHeader, IonCardTitle, IonCardSubtitle, RouterModule],
 })
 export class HomePage {
-  constructor() {}
+  constructor() { }
 }

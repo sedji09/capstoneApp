@@ -7,7 +7,7 @@ export interface RadiologyCase {
   patientName: string;
   modality: string;
   date: string;
-  status: 'Pending' | 'Completed' | 'Critical';
+  status: 'Pending' | 'Completed' | 'STAT';
   isEmergency: boolean;
   findings: string;
 }
@@ -53,18 +53,18 @@ export class DataService {
   public cases: RadiologyCase[] = [
     {
       id: '1',
-      caseNumber: 'CASE-2026-001',
+      caseNumber: 'GAP2026-00001',
       patientId: 'PAT-001',
       patientName: 'Juan Dela Cruz',
       modality: 'Chest X-Ray',
       date: '2026-08-25',
-      status: 'Critical',
+      status: 'STAT',
       isEmergency: true,
       findings: 'Hazy opacity on right lung lobe. Immediate attention advised.'
     },
     {
       id: '2',
-      caseNumber: 'CASE-2026-002',
+      caseNumber: 'GAP2026-00002',
       patientId: 'PAT-002',
       patientName: 'Maria Clara',
       modality: 'Chest X-Ray',
@@ -75,7 +75,7 @@ export class DataService {
     },
     {
       id: '3',
-      caseNumber: 'CASE-2026-003',
+      caseNumber: 'GAP2026-00003',
       patientId: 'PAT-001',
       patientName: 'Juan Dela Cruz',
       modality: 'Spine X-Ray',
@@ -107,11 +107,11 @@ export class DataService {
     return this.cases.filter(c => c.patientId === patientId);
   }
 
-  updateStatus(caseId: string, newStatus: 'Pending' | 'Completed' | 'Critical') {
+  updateStatus(caseId: string, newStatus: 'Pending' | 'Completed' | 'STAT') {
     const item = this.cases.find(c => c.id === caseId);
     if (item) {
       item.status = newStatus;
-      item.isEmergency = newStatus === 'Critical';
+      item.isEmergency = newStatus === 'STAT';
     }
   }
 }

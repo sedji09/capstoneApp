@@ -2,12 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { 
-  IonContent, IonHeader, IonTitle, IonToolbar, 
-  IonItem, IonInput, IonButton, IonCard, IonCardContent, IonText
-} from '@ionic/angular';
+import { IonContent, IonButton, IonToast, IonRouterLink } from '@ionic/angular';
 import { DataService } from '../services/data';
-
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -15,9 +11,8 @@ import { RouterModule } from '@angular/router';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
   imports: [
-    IonContent, IonHeader, IonTitle, IonToolbar, 
-    CommonModule, FormsModule, IonItem, 
-    IonInput, IonButton, IonCard, IonCardContent, IonText, RouterModule
+    IonContent, IonButton, IonToast, IonRouterLink,
+    CommonModule, FormsModule, RouterModule
   ]
 })
 export class LoginPage implements OnInit {
@@ -26,6 +21,7 @@ export class LoginPage implements OnInit {
   userId: string = '';
   userPass: string = '';
   errorMessage: string = '';
+  showPassword: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -44,7 +40,7 @@ export class LoginPage implements OnInit {
 
   doLogin() {
     this.errorMessage = ''; // reset error
-    
+
     if (this.loginType === 'patient') {
       const patient = this.dataService.loginPatient(this.userId.trim().toLowerCase(), this.userPass);
       if (patient) {

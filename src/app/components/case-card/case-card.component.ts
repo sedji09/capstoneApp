@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonBadge, IonButton, IonIcon } from '@ionic/angular';
 import { addIcons } from 'ionicons';
-import { warningOutline, eyeOutline, createOutline } from 'ionicons/icons';
+import { warningOutline, eyeOutline, createOutline, pulseOutline, calendarOutline, locationOutline } from 'ionicons/icons';
 import { RadiologyCase } from '../../services/data';
 
 @Component({
@@ -22,7 +22,7 @@ export class CaseCardComponent {
   @Output() updateStatus = new EventEmitter<RadiologyCase>();
 
   constructor() {
-    addIcons({ warningOutline, eyeOutline, createOutline });
+    addIcons({pulseOutline,eyeOutline,createOutline,warningOutline,calendarOutline,locationOutline});
   }
 
   onViewDetails() {
@@ -33,9 +33,9 @@ export class CaseCardComponent {
     this.updateStatus.emit(this.caseData);
   }
 
-  getStatusColor(status: string): string {
-    if (status === 'Critical') return 'danger';
-    if (status === 'Completed') return 'success';
-    return 'warning';
+  getStatusClass(status: string): string {
+    if (status === 'STAT') return 'status-stat';
+    if (status === 'Completed') return 'status-completed';
+    return 'status-pending';
   }
 }

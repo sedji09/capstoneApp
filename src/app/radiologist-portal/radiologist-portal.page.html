@@ -1,6 +1,10 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-title>Radiologist Portal</ion-title>
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <div style="display: flex; align-items: center; gap: 12px; padding: 8px 12px;">
+      <img src="../assets/image/citilife-logo.png" alt="Citilife Logo"
+        style="width: 42px; height: 42px; object-fit: contain;" />
+      <span style="font-size: 21px; font-weight: 700; margin: 0; letter-spacing: -0.5px;">Citilife Portal</span>
+    </div>
     <ion-buttons slot="end">
       <!-- Routing / routerLink -->
       <ion-button routerLink="/home" fill="clear">
@@ -11,33 +15,29 @@
   </ion-toolbar>
 </ion-header>
 
+
 <ion-content class="ion-padding">
-  
+
   <!-- Interpolation {{ }} -->
   <div class="welcome-banner">
-    <h2>Welcome, {{ radiologistName }}!</h2>
-    <p>Radiology Department - Patient Worklist</p>
+    <h2>Radiologist Dashboard</h2>
+    <p>Overview of patients for Today in all branches.</p>
   </div>
 
   <!-- Form Binding [(ngModel)]: Search Bar -->
-  <ion-searchbar 
-    [(ngModel)]="searchText" 
-    placeholder="Search patient name or case number...">
+  <ion-searchbar class="custom-searchbar" [(ngModel)]="searchText" placeholder="Search patient name or case number...">
   </ion-searchbar>
 
   <!-- @for Directive: Case List -->
   <div class="case-list">
     @for (caseItem of filteredCases; track caseItem.id) {
-      <!-- Property Binding [caseData] and [showActions] -->
-      <!-- Event Binding (viewDetails) and (updateStatus) -->
-      <app-case-card 
-        [caseData]="caseItem" 
-        [showActions]="true"
-        (viewDetails)="onViewDetails($event)"
-        (updateStatus)="onUpdateStatus($event)">
-      </app-case-card>
+    <!-- Property Binding [caseData] and [showActions] -->
+    <!-- Event Binding (viewDetails) and (updateStatus) -->
+    <app-case-card [caseData]="caseItem" [showActions]="true" (viewDetails)="onViewDetails($event)"
+      (updateStatus)="onUpdateStatus($event)">
+    </app-case-card>
     } @empty {
-      <p style="text-align: center; color: #888;">No cases found.</p>
+    <p style="text-align: center; color: #888;">No cases found.</p>
     }
   </div>
 
@@ -46,7 +46,7 @@
   <ion-modal [isOpen]="isModalOpen" (didDismiss)="closeModal()">
     <ng-template>
       <ion-header>
-        <ion-toolbar color="primary">
+        <ion-toolbar>
           <ion-title>Case Information</ion-title>
           <ion-buttons slot="end">
             <ion-button (click)="closeModal()">
@@ -59,27 +59,27 @@
       <ion-content class="ion-padding">
         <!-- @if Directive: Condition -->
         @if (selectedCase) {
-          <!-- Interpolation {{ }} -->
-          <h3>{{ selectedCase.patientName }}</h3>
-          <p><strong>Case Number:</strong> {{ selectedCase.caseNumber }}</p>
-          <p><strong>Modality:</strong> {{ selectedCase.modality }}</p>
-          <p><strong>Date:</strong> {{ selectedCase.date }}</p>
-          <p><strong>Findings:</strong> {{ selectedCase.findings }}</p>
+        <!-- Interpolation {{ }} -->
+        <h3>{{ selectedCase.patientName }}</h3>
+        <p><strong>Case Number:</strong> {{ selectedCase.caseNumber }}</p>
+        <p><strong>Modality:</strong> {{ selectedCase.modality }}</p>
+        <p><strong>Date:</strong> {{ selectedCase.date }}</p>
+        <p><strong>Findings:</strong> {{ selectedCase.findings }}</p>
 
-          <!-- Form Binding [(ngModel)]: Update Status Form -->
-          <ion-item style="margin-top: 15px;">
-            <ion-label position="stacked">Update Status</ion-label>
-            <ion-select [(ngModel)]="newStatus" placeholder="Select Status">
-              <ion-select-option value="Pending">Pending</ion-select-option>
-              <ion-select-option value="Completed">Completed</ion-select-option>
-              <ion-select-option value="Critical">Critical (Emergency)</ion-select-option>
-            </ion-select>
-          </ion-item>
+        <!-- Form Binding [(ngModel)]: Update Status Form -->
+        <ion-item style="margin-top: 15px;">
+          <ion-label position="stacked">Update Status</ion-label>
+          <ion-select [(ngModel)]="newStatus" placeholder="Select Status">
+            <ion-select-option value="Pending">Pending</ion-select-option>
+            <ion-select-option value="Completed">Completed</ion-select-option>
+            <ion-select-option value="STAT">STAT</ion-select-option>
+          </ion-select>
+        </ion-item>
 
-          <!-- Event Binding (click) -->
-          <ion-button expand="block" color="danger" style="margin-top: 20px;" (click)="saveStatus()">
-            Save Status
-          </ion-button>
+        <!-- Event Binding (click) -->
+        <ion-button expand="block" color="danger" style="margin-top: 20px;" (click)="saveStatus()">
+          Save Status
+        </ion-button>
         }
       </ion-content>
     </ng-template>

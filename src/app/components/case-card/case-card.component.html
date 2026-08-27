@@ -1,50 +1,55 @@
 <ion-card class="case-card">
 
-  <!-- @if Directive: Emergency Condition -->
-  @if (caseData.isEmergency) {
-    <div class="emergency-badge">
-      <ion-icon name="warning-outline"></ion-icon>
-      <span>EMERGENCY / STAT CASE</span>
-    </div>
-  }
 
-  <ion-card-header>
-    <!-- Interpolation {{ }} and Property Binding [color] -->
-    <div class="header-row">
-      <div>
-        <ion-card-title>{{ caseData.patientName }}</ion-card-title>
-        <ion-card-subtitle>{{ caseData.caseNumber }} &bull; {{ caseData.modality }}</ion-card-subtitle>
-      </div>
-      <ion-badge [color]="getStatusColor(caseData.status)">
-        {{ caseData.status }}
-      </ion-badge>
+  <div class="card-top-bar">
+    <div class="case-no-container">
+      <span class="case-no-label">CASE NO.</span>
+      <span class="case-no-value">{{ caseData.caseNumber }}</span>
     </div>
-  </ion-card-header>
+    <span class="status-badge" [ngClass]="getStatusClass(caseData.status)">
+      {{ caseData.status }}
+    </span>
+  </div>
+
+  <div class="card-content-main">
+    <div class="icon-box">
+      <ion-icon name="pulse-outline"></ion-icon>
+    </div>
+    <div class="details-col">
+      <h3 class="modality-title">{{ caseData.modality }}</h3>
+      <p class="detail-row">
+        <ion-icon name="calendar-outline"></ion-icon>
+        <span>{{ caseData.date }}</span>
+      </p>
+      <p class="detail-row">
+        <ion-icon name="location-outline"></ion-icon>
+        <span>Gapan</span>
+      </p>
+    </div>
+  </div>
 
   <ion-card-content>
-    <!-- Interpolation {{ }} -->
-    <p class="case-date">Date: {{ caseData.date }}</p>
 
     <!-- @if Directive: Show findings if present -->
     @if (caseData.findings) {
-      <p class="case-findings"><strong>Findings:</strong> {{ caseData.findings }}</p>
+    <p class="case-findings"><strong>Findings:</strong> {{ caseData.findings }}</p>
     }
 
     <!-- @if Directive: Show buttons for radiologist view -->
     @if (showActions) {
-      <div class="button-group">
-        <!-- Event Binding (click) -->
-        <ion-button size="small" fill="outline" (click)="onViewDetails()">
-          <ion-icon slot="start" name="eye-outline"></ion-icon>
-          View Details
-        </ion-button>
+    <div class="button-group">
+      <!-- Event Binding (click) -->
+      <ion-button size="small" fill="outline" (click)="onViewDetails()">
+        <ion-icon slot="start" name="eye-outline"></ion-icon>
+        View Details
+      </ion-button>
 
-        <!-- Event Binding (click) -->
-        <ion-button size="small" color="danger" (click)="onUpdateStatus()">
-          <ion-icon slot="start" name="create-outline"></ion-icon>
-          Update Status
-        </ion-button>
-      </div>
+      <!-- Event Binding (click) -->
+      <ion-button size="small" color="danger" (click)="onUpdateStatus()">
+        <ion-icon slot="start" name="create-outline"></ion-icon>
+        Update Status
+      </ion-button>
+    </div>
     }
   </ion-card-content>
 </ion-card>

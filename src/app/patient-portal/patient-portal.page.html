@@ -1,6 +1,10 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-title>Patient Portal</ion-title>
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <div style="display: flex; align-items: center; gap: 12px; padding: 8px 12px;">
+      <img src="../assets/image/citilife-logo.png" alt="Citilife Logo"
+        style="width: 42px; height: 42px; object-fit: contain;" />
+      <span style="font-size: 21px; font-weight: 700; margin: 0; letter-spacing: -0.5px;">Citilife Portal</span>
+    </div>
     <ion-buttons slot="end">
       <!-- Routing / routerLink -->
       <ion-button routerLink="/home" fill="clear">
@@ -22,10 +26,11 @@
   <ion-card>
     <ion-card-header>
       <div style="display: flex; align-items: center; gap: 15px;">
-        <img [src]="patient.userImg || 'assets/image/user1.jpg'" alt="Profile" width="50" height="50" style="border-radius: 50%; object-fit: cover;" />
+        <img [src]="patient.userImg || 'assets/image/user1.jpg'" alt="Profile" width="50" height="50"
+          style="border-radius: 50%; object-fit: cover;" />
         <div>
-          <ion-card-title>{{ patient.name }}</ion-card-title>
-          <ion-card-subtitle>{{ patient.patientId }}</ion-card-subtitle>
+          <ion-card-title style="font-size: 1.2rem; font-weight: bold;">{{ patient.name }}</ion-card-title>
+          <ion-card-subtitle style="font-size: 12px; font-weight: 100;">{{ patient.patientId }}</ion-card-subtitle>
         </div>
       </div>
     </ion-card-header>
@@ -42,15 +47,12 @@
 
   <!-- @for Directive: Loop through Patient Cases -->
   @for (caseItem of patientCases; track caseItem.id) {
-    <!-- Property Binding [caseData] and [showActions] -->
-    <!-- Event Binding (viewDetails) -->
-    <app-case-card 
-      [caseData]="caseItem" 
-      [showActions]="false"
-      (viewDetails)="onViewDetails($event)">
-    </app-case-card>
+  <!-- Property Binding [caseData] and [showActions] -->
+  <!-- Event Binding (viewDetails) -->
+  <app-case-card [caseData]="caseItem" [showActions]="false" (viewDetails)="onViewDetails($event)">
+  </app-case-card>
   } @empty {
-    <p style="text-align: center; color: #888;">No records available.</p>
+  <p style="text-align: center; color: #888;">No records available.</p>
   }
 
   <!-- Modal: View Details -->
@@ -70,16 +72,16 @@
       <ion-content class="ion-padding">
         <!-- @if Directive -->
         @if (selectedCase) {
-          <!-- Interpolation {{ }} -->
-          <h3>{{ selectedCase.modality }}</h3>
-          <p><strong>Case Number:</strong> {{ selectedCase.caseNumber }}</p>
-          <p><strong>Date:</strong> {{ selectedCase.date }}</p>
-          <p><strong>Status:</strong> {{ selectedCase.status }}</p>
-          <p><strong>Findings:</strong> {{ selectedCase.findings }}</p>
+        <!-- Interpolation {{ }} -->
+        <h3>{{ selectedCase.modality }}</h3>
+        <p><strong>Case Number:</strong> {{ selectedCase.caseNumber }}</p>
+        <p><strong>Date:</strong> {{ selectedCase.date }}</p>
+        <p><strong>Status:</strong> {{ selectedCase.status }}</p>
+        <p><strong>Findings:</strong> {{ selectedCase.findings }}</p>
 
-          <ion-button expand="block" fill="outline" style="margin-top: 20px;" (click)="closeModal()">
-            Close
-          </ion-button>
+        <ion-button expand="block" fill="outline" style="margin-top: 20px;" (click)="closeModal()">
+          Close
+        </ion-button>
         }
       </ion-content>
     </ng-template>
