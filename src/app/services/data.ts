@@ -19,19 +19,19 @@ export class DataService {
 
   // Static Data: Patients
   public patients = [
-    { 
+    {
       patientId: 'PAT2026-GAP-00005',
-      email: 'juandelacruz@gmail.com', 
-      password: 'password123', 
+      email: 'juandelacruz@gmail.com',
+      password: 'password123',
       name: 'Juan Dela Cruz',
       userImg: 'assets/image/user1.jpg',
       location: 'Gapan City',
       contactNo: '09123456789'
     },
-    { 
-      patientId: 'PAT-002',
-      email: 'mariaclara@gmail.com', 
-      password: 'password123', 
+    {
+      patientId: 'PAT2026-BON-00002',
+      email: 'mariaclara@gmail.com',
+      password: 'password123',
       name: 'Maria Clara',
       userImg: 'assets/image/user2.jpg',
       location: 'Bongabon',
@@ -41,11 +41,11 @@ export class DataService {
 
   // Static Data: Radiologist
   public radiologists = [
-    { 
-      email: 'johndoe@gmail.com', 
-      password: 'radiologist123', 
-      name: 'Dr. John Doe', 
-      department: 'Radiology' 
+    {
+      email: 'johndoe@gmail.com',
+      password: 'radiologist123',
+      name: 'Dr. John Doe',
+      department: 'Radiology'
     }
   ];
 
@@ -54,7 +54,7 @@ export class DataService {
     {
       id: '1',
       caseNumber: 'GAP2026-00001',
-      patientId: 'PAT-001',
+      patientId: 'PAT2026-GAP-00005',
       patientName: 'Juan Dela Cruz',
       modality: 'Chest X-Ray',
       date: '2026-08-25',
@@ -64,8 +64,8 @@ export class DataService {
     },
     {
       id: '2',
-      caseNumber: 'GAP2026-00002',
-      patientId: 'PAT-002',
+      caseNumber: 'BON2026-00001',
+      patientId: 'PAT2026-BON-00002',
       patientName: 'Maria Clara',
       modality: 'Chest X-Ray',
       date: '2026-08-25',
@@ -76,7 +76,7 @@ export class DataService {
     {
       id: '3',
       caseNumber: 'GAP2026-00003',
-      patientId: 'PAT-001',
+      patientId: 'PAT2026-GAP-00005',
       patientName: 'Juan Dela Cruz',
       modality: 'Spine X-Ray',
       date: '2026-08-24',
