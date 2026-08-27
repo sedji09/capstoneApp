@@ -20,7 +20,7 @@ export class DataService {
   // Static Data: Patients
   public patients = [
     { 
-      patientId: 'PAT-001',
+      patientId: 'PAT2026-GAP-00005',
       email: 'juandelacruz@gmail.com', 
       password: 'password123', 
       name: 'Juan Dela Cruz',
