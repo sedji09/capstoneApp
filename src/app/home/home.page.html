@@ -17,7 +17,8 @@
           <ion-card-title>Patient Portal</ion-card-title>
         </ion-card-header>
         <div class="ion-padding" style="padding-top: 0;">
-          <ion-button routerLink="/login" [queryParams]="{ type: 'patient' }" expand="block" color="danger" routerDirection="forward">
+          <!-- Routing / routerLink -->
+          <ion-button routerLink="/login" expand="block" color="danger">
             Login as Patient
           </ion-button>
         </div>
@@ -31,7 +32,7 @@
           <ion-card-title>RadTech Portal</ion-card-title>
         </ion-card-header>
         <div class="ion-padding" style="padding-top: 0;">
-          <ion-button routerLink="/login" [queryParams]="{ type: 'radtech' }" expand="block" color="danger">
+          <ion-button routerLink="/login" expand="block" color="danger">
             Login as RadTech
           </ion-button>
         </div>

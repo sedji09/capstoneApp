@@ -1,13 +1,14 @@
 <ion-card class="case-card">
 
-
   <div class="card-top-bar">
     <div class="case-no-container">
       <span class="case-no-label">CASE NO.</span>
-      <span class="case-no-value">{{ caseData.caseNumber }}</span>
+      <!-- Interpolation -->
+      <span class="case-no-value">{{ caseData().caseNumber }}</span>
     </div>
-    <span class="status-badge" [ngClass]="getStatusClass(caseData.status)">
-      {{ caseData.status }}
+    <!-- Property binding -->
+    <span class="status-badge" [ngClass]="getStatusClass(caseData().status)">
+      {{ caseData().status }}
     </span>
   </div>
 
@@ -16,11 +17,11 @@
       <ion-icon name="pulse-outline"></ion-icon>
     </div>
     <div class="details-col">
-      <h3 class="modality-title">{{ caseData.modality }}</h3>
+      <h3 class="modality-title">{{ caseData().modality }}</h3>
       <div class="details-inline">
         <p class="detail-row">
           <ion-icon name="calendar-outline"></ion-icon>
-          <span>{{ caseData.date }}</span>
+          <span>{{ caseData().date }}</span>
         </p>
         <p class="detail-row">
           <ion-icon name="location-outline"></ion-icon>
@@ -31,25 +32,26 @@
   </div>
 
   <ion-card-content>
-
-    <!-- @if Directive: Show findings if present -->
-    @if (caseData.findings) {
-    <p class="case-findings"><strong>Findings:</strong> {{ caseData.findings }}</p>
-    }
-
-    <!-- @if Directive: Show buttons for radtech view -->
-    @if (showActions) {
+    <!-- @if - conditional display -->
+    @if (showActions()) {
     <div class="button-group">
-      <!-- Event Binding (click) -->
+      <!-- Event binding -->
       <ion-button size="small" fill="outline" (click)="onViewDetails()">
         <ion-icon slot="start" name="eye-outline"></ion-icon>
         View Details
       </ion-button>
 
-      <!-- Event Binding (click) -->
+      <!-- Event binding -->
       <ion-button size="small" color="danger" (click)="onUpdateStatus()">
         <ion-icon slot="start" name="create-outline"></ion-icon>
         Update Status
+      </ion-button>
+    </div>
+    } @else {
+    <div class="button-group">
+      <ion-button size="small" fill="outline" (click)="onViewDetails()">
+        <ion-icon slot="start" name="eye-outline"></ion-icon>
+        View Details
       </ion-button>
     </div>
     }

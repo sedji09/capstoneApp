@@ -6,7 +6,6 @@
       <span style="font-size: 21px; font-weight: 700; margin: 0; letter-spacing: -0.5px;">Citilife Portal</span>
     </div>
     <ion-buttons slot="end">
-      <!-- Routing / routerLink -->
       <ion-button routerLink="/home" fill="clear">
         <ion-icon slot="start" name="log-out-outline"></ion-icon>
         Logout
@@ -15,24 +14,21 @@
   </ion-toolbar>
 </ion-header>
 
-
 <ion-content class="ion-padding">
 
-  <!-- Interpolation {{ }} -->
   <div class="welcome-banner">
     <h2>RadTech Dashboard</h2>
     <p>Overview of patients for Today in all branches.</p>
   </div>
 
-  <!-- Form Binding [(ngModel)]: Search Bar -->
+  <!-- Two-way form binding -->
   <ion-searchbar class="custom-searchbar" [(ngModel)]="searchText" placeholder="Search patient name or case number...">
   </ion-searchbar>
 
-  <!-- @for Directive: Case List -->
   <div class="case-list">
+    <!-- @for - looping through filtered cases -->
     @for (caseItem of filteredCases; track caseItem.id) {
-    <!-- Property Binding [caseData] and [showActions] -->
-    <!-- Event Binding (viewDetails) and (updateStatus) -->
+    <!-- Reusable Component: app-case-card with Property & Event bindings -->
     <app-case-card [caseData]="caseItem" [showActions]="true" (viewDetails)="onViewDetails($event)"
       (updateStatus)="onUpdateStatus($event)">
     </app-case-card>
@@ -41,8 +37,6 @@
     }
   </div>
 
-  <!-- Modal: View Details & Update Status -->
-  <!-- Property Binding [isOpen] and Event Binding (didDismiss) -->
   <ion-modal [isOpen]="isModalOpen" (didDismiss)="closeModal()">
     <ng-template>
       <ion-header>
@@ -57,10 +51,10 @@
       </ion-header>
 
       <ion-content class="ion-padding">
-        <!-- @if Directive: Condition -->
+        <!-- @if - conditional display -->
         @if (selectedCase) {
           @if (modalMode === 'view') {
-            <!-- Read-only Case Details -->
+            <!-- Interpolation -->
             <h3>{{ selectedCase.patientName }}</h3>
             <p><strong>Case Number:</strong> {{ selectedCase.caseNumber }}</p>
             <p><strong>Modality:</strong> {{ selectedCase.modality }}</p>
@@ -72,14 +66,14 @@
               Close
             </ion-button>
           } @else {
-            <!-- Update Status Form -->
             <h3>{{ selectedCase.patientName }}</h3>
             <p><strong>Case Number:</strong> {{ selectedCase.caseNumber }}</p>
             <p><strong>Current Status:</strong> {{ selectedCase.status }}</p>
+            <p><strong>Findings:</strong> {{ selectedCase.findings }}</p>
 
-            <!-- Form Binding [(ngModel)]: Update Status Form -->
             <ion-item style="margin-top: 15px;">
               <ion-label position="stacked">Update Status</ion-label>
+              <!-- Two-way form binding -->
               <ion-select [(ngModel)]="newStatus" placeholder="Select Status">
                 <ion-select-option value="Pending">Pending</ion-select-option>
                 <ion-select-option value="Completed">Completed</ion-select-option>
@@ -87,7 +81,7 @@
               </ion-select>
             </ion-item>
 
-            <!-- Event Binding (click) -->
+            <!-- Event binding -->
             <ion-button expand="block" color="danger" style="margin-top: 20px;" (click)="saveStatus()">
               Save Status
             </ion-button>

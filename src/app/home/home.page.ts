@@ -1,13 +1,20 @@
 import { Component } from '@angular/core';
-import { IonHeader, IonToolbar, IonContent, IonCard, IonButton, IonCardHeader, IonCardTitle, IonCardSubtitle } from '@ionic/angular';
-import { RouterModule } from '@angular/router';
+import { RouterLink } from '@angular/router';
+import {
+  IonHeader,
+  IonToolbar,
+  IonContent,
+  IonCard,
+  IonCardHeader,
+  IonCardTitle,
+  IonCardSubtitle,
+  IonButton
+} from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-  imports: [IonHeader, IonToolbar, IonContent, IonCard, IonButton, IonCardHeader, IonCardTitle, IonCardSubtitle, RouterModule],
+  imports: [ IonHeader, IonToolbar, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonButton, RouterLink ]
 })
-export class HomePage {
-  constructor() { }
-}
+export class HomePage {}

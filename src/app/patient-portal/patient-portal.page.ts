@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterModule, ActivatedRoute } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import {
   IonContent,
   IonHeader,
@@ -27,55 +27,31 @@ import { locationOutline, callOutline, mailOutline, logOutOutline, closeOutline,
   standalone: true,
   templateUrl: './patient-portal.page.html',
   styleUrls: ['./patient-portal.page.scss'],
-  imports: [
-    CommonModule,
-    FormsModule,
-    RouterModule,
-    IonContent,
-    IonHeader,
-    IonTitle,
-    IonToolbar,
-    IonButtons,
-    IonButton,
-    IonCard,
-    IonCardHeader,
-    IonCardTitle,
-    IonCardSubtitle,
-    IonCardContent,
-    IonIcon,
-    IonModal,
-    CaseCardComponent
+  imports: [CommonModule, FormsModule, RouterLink, IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonButton, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonIcon, IonModal, CaseCardComponent
   ]
 })
 export class PatientPortalPage implements OnInit {
 
-  // Interpolation: Patient Data
+  // Service - data provider
+  private dataService = inject(DataService);
+
   patient: any = {};
   patientCases: RadiologyCase[] = [];
 
-  // Modal view for details
   selectedCase: RadiologyCase | null = null;
   isModalOpen: boolean = false;
 
-  constructor(
-    private route: ActivatedRoute,
-    private dataService: DataService
-  ) {
+  constructor() {
     addIcons({ logOutOutline, locationOutline, callOutline, mailOutline, addOutline, closeOutline });
   }
 
   ngOnInit() {
-    this.route.queryParams.subscribe(params => {
-      const email = params['email'] || 'juandelacruz@gmail.com';
-      this.patient = this.dataService.getPatient(email) || this.dataService.patients[0];
-
-      if (this.patient && this.patient.patientId) {
-        this.patientCases = this.dataService.getPatientCases(this.patient.patientId);
-      }
-    });
+    this.patient = this.dataService.currentPatient || this.dataService.patients[0];
+    if (this.patient && this.patient.patientId) {
+      this.patientCases = this.dataService.getPatientCases(this.patient.patientId);
+    }
   }
 
-  // Event Binding Handler: View Details
   onViewDetails(caseItem: RadiologyCase) {
     this.selectedCase = caseItem;
     this.isModalOpen = true;

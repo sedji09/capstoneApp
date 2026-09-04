@@ -130,6 +130,15 @@ ion-card-header {
 
 .button-group {
   display: flex;
-  gap: 8px;
+  gap: 10px;
   margin-top: 10px;
+  align-items: center;
+
+  ion-button {
+    white-space: nowrap;
+    text-transform: none;
+    font-weight: 600;
+    --padding-start: 12px;
+    --padding-end: 12px;
+  }
 }

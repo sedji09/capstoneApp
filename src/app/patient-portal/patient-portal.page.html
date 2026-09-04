@@ -6,7 +6,6 @@
       <span style="font-size: 21px; font-weight: 700; margin: 0; letter-spacing: -0.5px;">Citilife Portal</span>
     </div>
     <ion-buttons slot="end">
-      <!-- Routing / routerLink -->
       <ion-button routerLink="/home" fill="clear">
         <ion-icon slot="start" name="log-out-outline"></ion-icon>
         Logout
@@ -16,16 +15,16 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <!-- Interpolation {{ }} -->
   <div class="welcome-header">
+    <!-- Interpolation -->
     <h2>Welcome, {{ patient.name }}!</h2>
     <p>Here is your radiology examination status.</p>
   </div>
 
-  <!-- Patient Information Card using Interpolation {{ }} -->
   <ion-card>
     <ion-card-header>
       <div style="display: flex; align-items: center; gap: 15px;">
+        <!-- Property binding -->
         <img [src]="patient.userImg || 'assets/image/user1.jpg'" alt="Profile" width="50" height="50"
           style="border-radius: 50%; object-fit: cover;" />
         <div>
@@ -51,17 +50,15 @@
 
   <h3 style="margin-top: 20px;">My Radiology Records</h3>
 
-  <!-- @for Directive: Loop through Patient Cases -->
+  <!-- @for - loop through records -->
   @for (caseItem of patientCases; track caseItem.id) {
-  <!-- Property Binding [caseData] and [showActions] -->
-  <!-- Event Binding (viewDetails) -->
+  <!-- Reusable Component: Property binding [caseData] and Event binding (viewDetails) -->
   <app-case-card [caseData]="caseItem" [showActions]="false" (viewDetails)="onViewDetails($event)">
   </app-case-card>
   } @empty {
   <p style="text-align: center; color: #888;">No records available.</p>
   }
 
-  <!-- Modal: View Details -->
   <ion-modal [isOpen]="isModalOpen" (didDismiss)="closeModal()">
     <ng-template>
       <ion-header>
@@ -76,9 +73,8 @@
       </ion-header>
 
       <ion-content class="ion-padding">
-        <!-- @if Directive -->
+        <!-- @if - conditional display -->
         @if (selectedCase) {
-        <!-- Interpolation {{ }} -->
         <h3>{{ selectedCase.modality }}</h3>
         <p><strong>Case Number:</strong> {{ selectedCase.caseNumber }}</p>
         <p><strong>Date:</strong> {{ selectedCase.date }}</p>

@@ -12,44 +12,45 @@ export interface RadiologyCase {
   findings: string;
 }
 
+// Services
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
 
-  // Static Data: Patients
+  // Patients
   public patients = [
     {
       patientId: 'PAT2026-GAP-00005',
-      email: 'juandelacruz@gmail.com',
+      email: 'seigipascual@gmail.com',
       password: 'password123',
-      name: 'Juan Dela Cruz',
+      name: 'Seigi Pascual',
       userImg: 'assets/image/user1.jpg',
       location: 'Gapan City',
       contactNo: '09123456789'
     },
     {
       patientId: 'PAT2026-BON-00002',
-      email: 'mariaclara@gmail.com',
+      email: 'jayrmaglaque@gmail.com',
       password: 'password123',
-      name: 'Maria Clara',
+      name: 'Jay-R Maglaque',
       userImg: 'assets/image/user2.jpg',
       location: 'Bongabon',
       contactNo: '09673725172'
     }
   ];
 
-  // Static Data: RadTech
+  // RadTech
   public radtechs = [
     {
       email: 'johndoe@gmail.com',
       password: 'radtech123',
       name: 'John Doe, RRT',
-      department: 'Radiology'
+      department: ''
     }
   ];
 
-  // Static Data: Radiology Cases
+  // Cases
   public cases: RadiologyCase[] = [
     {
       id: '1',
@@ -86,15 +87,23 @@ export class DataService {
     }
   ];
 
-  // Service Methods
+  currentPatient: any = this.patients[0];
+  currentRadTech: any = this.radtechs[0];
+
   loginPatient(email: string, pass: string) {
-    return this.patients.find(p => p.email === email && p.password === pass);
+    const found = this.patients.find(p => p.email === email && p.password === pass);
+    if (found) {
+      this.currentPatient = found;
+    }
+    return found;
   }
 
   loginRadTech(email: string, pass: string) {
-    return this.radtechs.find(
-      r => r.email === email && r.password === pass
-    );
+    const found = this.radtechs.find(r => r.email === email && r.password === pass);
+    if (found) {
+      this.currentRadTech = found;
+    }
+    return found;
   }
 
   getPatient(email: string) {

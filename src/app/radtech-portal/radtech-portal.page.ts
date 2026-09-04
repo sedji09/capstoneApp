@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { 
   IonContent, 
   IonHeader, 
@@ -30,7 +30,7 @@ import { logOutOutline, closeOutline } from 'ionicons/icons';
   imports: [
     CommonModule, 
     FormsModule, 
-    RouterModule,
+    RouterLink,
     IonContent, 
     IonHeader, 
     IonTitle, 
@@ -49,20 +49,19 @@ import { logOutOutline, closeOutline } from 'ionicons/icons';
 })
 export class RadtechPortalPage implements OnInit {
 
-  // Interpolation: RadTech Info
-  radtechName: string = 'John Doe, RRT';
-  cases: RadiologyCase[] = [];
+  // Service - data provider
+  private dataService = inject(DataService);
 
-  // Form Binding [(ngModel)]: Search Query
+  radtechName: string = this.dataService.currentRadTech?.name || 'John Doe, RRT';
+  cases: RadiologyCase[] = [];
   searchText: string = '';
 
-  // Selected case for details / update modal
   selectedCase: RadiologyCase | null = null;
   isModalOpen: boolean = false;
   modalMode: 'view' | 'update' = 'view';
   newStatus: 'Pending' | 'Completed' | 'STAT' = 'Pending';
 
-  constructor(private dataService: DataService) {
+  constructor() {
     addIcons({ logOutOutline, closeOutline });
   }
 
@@ -70,7 +69,6 @@ export class RadtechPortalPage implements OnInit {
     this.cases = this.dataService.getCases();
   }
 
-  // Filter cases with searchText
   get filteredCases(): RadiologyCase[] {
     if (!this.searchText) {
       return this.cases;
@@ -82,7 +80,6 @@ export class RadtechPortalPage implements OnInit {
     );
   }
 
-  // Event Binding Handlers
   onViewDetails(caseItem: RadiologyCase) {
     this.selectedCase = caseItem;
     this.modalMode = 'view';
