@@ -2,25 +2,25 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, ActivatedRoute } from '@angular/router';
-import { 
-  IonContent, 
-  IonHeader, 
-  IonTitle, 
-  IonToolbar, 
-  IonButtons, 
-  IonButton, 
-  IonCard, 
-  IonCardHeader, 
-  IonCardTitle, 
-  IonCardSubtitle, 
-  IonCardContent, 
+import {
+  IonContent,
+  IonHeader,
+  IonTitle,
+  IonToolbar,
+  IonButtons,
+  IonButton,
+  IonCard,
+  IonCardHeader,
+  IonCardTitle,
+  IonCardSubtitle,
+  IonCardContent,
   IonIcon,
   IonModal
 } from '@ionic/angular';
 import { DataService, RadiologyCase } from '../services/data';
 import { CaseCardComponent } from '../components/case-card/case-card.component';
 import { addIcons } from 'ionicons';
-import { locationOutline, callOutline, mailOutline, logOutOutline, closeOutline } from 'ionicons/icons';
+import { locationOutline, callOutline, mailOutline, logOutOutline, closeOutline, addOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-patient-portal',
@@ -28,20 +28,20 @@ import { locationOutline, callOutline, mailOutline, logOutOutline, closeOutline 
   templateUrl: './patient-portal.page.html',
   styleUrls: ['./patient-portal.page.scss'],
   imports: [
-    CommonModule, 
-    FormsModule, 
+    CommonModule,
+    FormsModule,
     RouterModule,
-    IonContent, 
-    IonHeader, 
-    IonTitle, 
-    IonToolbar, 
-    IonButtons, 
-    IonButton, 
-    IonCard, 
-    IonCardHeader, 
-    IonCardTitle, 
-    IonCardSubtitle, 
-    IonCardContent, 
+    IonContent,
+    IonHeader,
+    IonTitle,
+    IonToolbar,
+    IonButtons,
+    IonButton,
+    IonCard,
+    IonCardHeader,
+    IonCardTitle,
+    IonCardSubtitle,
+    IonCardContent,
     IonIcon,
     IonModal,
     CaseCardComponent
@@ -61,14 +61,14 @@ export class PatientPortalPage implements OnInit {
     private route: ActivatedRoute,
     private dataService: DataService
   ) {
-    addIcons({ locationOutline, callOutline, mailOutline, logOutOutline, closeOutline });
+    addIcons({ logOutOutline, locationOutline, callOutline, mailOutline, addOutline, closeOutline });
   }
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       const email = params['email'] || 'juandelacruz@gmail.com';
       this.patient = this.dataService.getPatient(email) || this.dataService.patients[0];
-      
+
       if (this.patient && this.patient.patientId) {
         this.patientCases = this.dataService.getPatientCases(this.patient.patientId);
       }
