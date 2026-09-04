@@ -20,7 +20,7 @@
 
   <!-- Interpolation {{ }} -->
   <div class="welcome-banner">
-    <h2>Radiologist Dashboard</h2>
+    <h2>RadTech Dashboard</h2>
     <p>Overview of patients for Today in all branches.</p>
   </div>
 
@@ -47,7 +47,7 @@
     <ng-template>
       <ion-header>
         <ion-toolbar>
-          <ion-title>Case Information</ion-title>
+          <ion-title>{{ modalMode === 'view' ? 'Case Information' : 'Update Status' }}</ion-title>
           <ion-buttons slot="end">
             <ion-button (click)="closeModal()">
               <ion-icon name="close-outline"></ion-icon>
@@ -59,27 +59,39 @@
       <ion-content class="ion-padding">
         <!-- @if Directive: Condition -->
         @if (selectedCase) {
-        <!-- Interpolation {{ }} -->
-        <h3>{{ selectedCase.patientName }}</h3>
-        <p><strong>Case Number:</strong> {{ selectedCase.caseNumber }}</p>
-        <p><strong>Modality:</strong> {{ selectedCase.modality }}</p>
-        <p><strong>Date:</strong> {{ selectedCase.date }}</p>
-        <p><strong>Findings:</strong> {{ selectedCase.findings }}</p>
+          @if (modalMode === 'view') {
+            <!-- Read-only Case Details -->
+            <h3>{{ selectedCase.patientName }}</h3>
+            <p><strong>Case Number:</strong> {{ selectedCase.caseNumber }}</p>
+            <p><strong>Modality:</strong> {{ selectedCase.modality }}</p>
+            <p><strong>Date:</strong> {{ selectedCase.date }}</p>
+            <p><strong>Status:</strong> {{ selectedCase.status }}</p>
+            <p><strong>Findings:</strong> {{ selectedCase.findings }}</p>
 
-        <!-- Form Binding [(ngModel)]: Update Status Form -->
-        <ion-item style="margin-top: 15px;">
-          <ion-label position="stacked">Update Status</ion-label>
-          <ion-select [(ngModel)]="newStatus" placeholder="Select Status">
-            <ion-select-option value="Pending">Pending</ion-select-option>
-            <ion-select-option value="Completed">Completed</ion-select-option>
-            <ion-select-option value="STAT">STAT</ion-select-option>
-          </ion-select>
-        </ion-item>
+            <ion-button expand="block" fill="outline" style="margin-top: 20px;" (click)="closeModal()">
+              Close
+            </ion-button>
+          } @else {
+            <!-- Update Status Form -->
+            <h3>{{ selectedCase.patientName }}</h3>
+            <p><strong>Case Number:</strong> {{ selectedCase.caseNumber }}</p>
+            <p><strong>Current Status:</strong> {{ selectedCase.status }}</p>
 
-        <!-- Event Binding (click) -->
-        <ion-button expand="block" color="danger" style="margin-top: 20px;" (click)="saveStatus()">
-          Save Status
-        </ion-button>
+            <!-- Form Binding [(ngModel)]: Update Status Form -->
+            <ion-item style="margin-top: 15px;">
+              <ion-label position="stacked">Update Status</ion-label>
+              <ion-select [(ngModel)]="newStatus" placeholder="Select Status">
+                <ion-select-option value="Pending">Pending</ion-select-option>
+                <ion-select-option value="Completed">Completed</ion-select-option>
+                <ion-select-option value="STAT">STAT</ion-select-option>
+              </ion-select>
+            </ion-item>
+
+            <!-- Event Binding (click) -->
+            <ion-button expand="block" color="danger" style="margin-top: 20px;" (click)="saveStatus()">
+              Save Status
+            </ion-button>
+          }
         }
       </ion-content>
     </ng-template>

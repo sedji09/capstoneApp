@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IonContent, IonButton, IonToast, IonRouterLink } from '@ionic/angular';
+import { IonContent, IonButton, IonRouterLink } from '@ionic/angular';
 import { DataService } from '../services/data';
 import { RouterModule } from '@angular/router';
 
@@ -11,7 +11,7 @@ import { RouterModule } from '@angular/router';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
   imports: [
-    IonContent, IonButton, IonToast, IonRouterLink,
+    IonContent, IonButton, IonRouterLink,
     CommonModule, FormsModule, RouterModule
   ]
 })
@@ -30,7 +30,7 @@ export class LoginPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    // Kunin yung type from URL query parameter, halimbawa: /login?type=radiologist
+    // Kunin yung type from URL query parameter, halimbawa: /login?type=radtech
     this.route.queryParams.subscribe(params => {
       if (params['type']) {
         this.loginType = params['type'];
@@ -49,12 +49,12 @@ export class LoginPage implements OnInit {
       } else {
         this.errorMessage = 'Invalid Patient ID or password.';
       }
-    } else if (this.loginType === 'radiologist') {
-      const rad = this.dataService.loginRadiologist(this.userId.trim().toLowerCase(), this.userPass);
+    } else if (this.loginType === 'radtech') {
+      const rad = this.dataService.loginRadTech(this.userId.trim().toLowerCase(), this.userPass);
       if (rad) {
-        this.router.navigate(['/radiologist-portal'], { queryParams: { email: rad.email } });
+        this.router.navigate(['/radtech-portal'], { queryParams: { email: rad.email } });
       } else {
-        this.errorMessage = 'Invalid Radiologist ID or password.';
+        this.errorMessage = 'Invalid RadTech ID or password.';
       }
     }
   }

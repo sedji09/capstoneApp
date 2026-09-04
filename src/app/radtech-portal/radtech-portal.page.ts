@@ -23,10 +23,10 @@ import { addIcons } from 'ionicons';
 import { logOutOutline, closeOutline } from 'ionicons/icons';
 
 @Component({
-  selector: 'app-radiologist-portal',
+  selector: 'app-radtech-portal',
   standalone: true,
-  templateUrl: './radiologist-portal.page.html',
-  styleUrls: ['./radiologist-portal.page.scss'],
+  templateUrl: './radtech-portal.page.html',
+  styleUrls: ['./radtech-portal.page.scss'],
   imports: [
     CommonModule, 
     FormsModule, 
@@ -47,10 +47,10 @@ import { logOutOutline, closeOutline } from 'ionicons/icons';
     CaseCardComponent
   ]
 })
-export class RadiologistPortalPage implements OnInit {
+export class RadtechPortalPage implements OnInit {
 
-  // Interpolation: Radiologist Info
-  radiologistName: string = 'Dr. John Doe';
+  // Interpolation: RadTech Info
+  radtechName: string = 'John Doe, RRT';
   cases: RadiologyCase[] = [];
 
   // Form Binding [(ngModel)]: Search Query
@@ -59,6 +59,7 @@ export class RadiologistPortalPage implements OnInit {
   // Selected case for details / update modal
   selectedCase: RadiologyCase | null = null;
   isModalOpen: boolean = false;
+  modalMode: 'view' | 'update' = 'view';
   newStatus: 'Pending' | 'Completed' | 'STAT' = 'Pending';
 
   constructor(private dataService: DataService) {
@@ -84,13 +85,14 @@ export class RadiologistPortalPage implements OnInit {
   // Event Binding Handlers
   onViewDetails(caseItem: RadiologyCase) {
     this.selectedCase = caseItem;
-    this.newStatus = caseItem.status;
+    this.modalMode = 'view';
     this.isModalOpen = true;
   }
 
   onUpdateStatus(caseItem: RadiologyCase) {
     this.selectedCase = caseItem;
     this.newStatus = caseItem.status;
+    this.modalMode = 'update';
     this.isModalOpen = true;
   }
 

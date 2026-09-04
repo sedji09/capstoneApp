@@ -19,7 +19,7 @@ export const routes: Routes = [
     loadComponent: () => import('./patient-portal/patient-portal.page').then( m => m.PatientPortalPage)
   },
   {
-    path: 'radiologist-portal',
-    loadComponent: () => import('./radiologist-portal/radiologist-portal.page').then( m => m.RadiologistPortalPage)
+    path: 'radtech-portal',
+    loadComponent: () => import('./radtech-portal/radtech-portal.page').then( m => m.RadtechPortalPage)
   },
 ];

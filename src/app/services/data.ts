@@ -39,12 +39,12 @@ export class DataService {
     }
   ];
 
-  // Static Data: Radiologist
-  public radiologists = [
+  // Static Data: RadTech
+  public radtechs = [
     {
       email: 'johndoe@gmail.com',
-      password: 'radiologist123',
-      name: 'Dr. John Doe',
+      password: 'radtech123',
+      name: 'John Doe, RRT',
       department: 'Radiology'
     }
   ];
@@ -91,8 +91,10 @@ export class DataService {
     return this.patients.find(p => p.email === email && p.password === pass);
   }
 
-  loginRadiologist(email: string, pass: string) {
-    return this.radiologists.find(r => r.email === email && r.password === pass);
+  loginRadTech(email: string, pass: string) {
+    return this.radtechs.find(
+      r => r.email === email && r.password === pass
+    );
   }
 
   getPatient(email: string) {

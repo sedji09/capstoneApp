@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonBadge, IonButton, IonIcon } from '@ionic/angular';
+import { IonCard, IonCardContent, IonButton, IonIcon } from '@ionic/angular';
 import { addIcons } from 'ionicons';
 import { warningOutline, eyeOutline, createOutline, pulseOutline, calendarOutline, locationOutline } from 'ionicons/icons';
 import { RadiologyCase } from '../../services/data';
@@ -10,7 +10,7 @@ import { RadiologyCase } from '../../services/data';
   standalone: true,
   templateUrl: './case-card.component.html',
   styleUrls: ['./case-card.component.scss'],
-  imports: [CommonModule, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonBadge, IonButton, IonIcon]
+  imports: [CommonModule, IonCard, IonCardContent, IonButton, IonIcon]
 })
 export class CaseCardComponent {
   // Property Binding: Data passed into this reusable component
